@@ -13,15 +13,13 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class CarMotion extends AsyncTask {
     private GoogleMap mMap;
-    private boolean running=true;
-    MarkerOptions carMarker;
+    private boolean running = true;
     private LatLng carLocation;
     private DoublePoint velocity = new DoublePoint(0.000001, 0.000001);
 
-    public CarMotion(GoogleMap googleMap, LatLng position, MarkerOptions marker) {
+    public CarMotion(GoogleMap googleMap, LatLng position) {
         mMap = googleMap;
         carLocation = position;
-        carMarker = marker;
     }
 
 
@@ -51,5 +49,9 @@ public class CarMotion extends AsyncTask {
         //carMarker.position(carLocation);
         //mMap.clear();
         //mMap.addMarker(carMarker);
+    }
+
+    public void setVelocity(){
+        new DoublePoint(0.000001, 0.000001);
     }
 }

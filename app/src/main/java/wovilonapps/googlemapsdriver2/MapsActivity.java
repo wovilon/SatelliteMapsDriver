@@ -4,6 +4,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -20,15 +23,35 @@ import wovilonapps.googlemapsdriver2.Model.CarMotion;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private CarMotion carMotion;
+    private Button buttonAccelerate, buttonBrake, buttonLeft, buttonRight;
+    View.OnTouchListener onTouchListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
+        setContentView(R.layout.activity_map);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        buttonAccelerate = (Button)findViewById(R.id.btAccelerate);
+        buttonBrake = (Button)findViewById(R.id.btBrake);
+        buttonLeft = (Button)findViewById(R.id.btLeft);
+        buttonRight = (Button)findViewById(R.id.btRight);
+
+        buttonAccelerate.setOnTouchListener(onTouchListener);
+        buttonBrake.setOnTouchListener(onTouchListener);
+        buttonLeft.setOnTouchListener(onTouchListener);
+        buttonRight.setOnTouchListener(onTouchListener);
+
+        onTouchListener = new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return false;
+            }
+        };
     }
 
 
@@ -50,7 +73,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         /*mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                 new LatLng(carLocation.latitude, carLocation.longitude), 20.0f));*/
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                new LatLng(carLocation.latitude, carLocation.longitude), 20.0f));
+                new LatLng(carLocation.latitude, carLocation.longitude), 20.1f));
 
         //Bitmap carBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.car);
         //carBitmap = Bitmap.createScaledBitmap(carBitmap, 100, 100, false);
@@ -60,8 +83,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //carMarker.icon(icon);
         //mMap.addMarker(carMarker);
 
-        //CarMotion carMotion = new CarMotion(mMap, carLocation, carMarker);
-        //carMotion.execute();
+        carMotion = new CarMotion(mMap, carLocation);
+        carMotion.execute();
+
     }
+
 
 }
