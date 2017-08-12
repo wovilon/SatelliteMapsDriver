@@ -20,12 +20,13 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import wovilonapps.googlemapsdriver2.Model.CarMotion;
 
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, View.OnTouchListener {
 
     private GoogleMap mMap;
     private CarMotion carMotion;
     private Button buttonAccelerate, buttonBrake, buttonLeft, buttonRight;
-    View.OnTouchListener onTouchListener;
+    private Button car;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,22 +37,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        car = (Button)findViewById(R.id.car);
         buttonAccelerate = (Button)findViewById(R.id.btAccelerate);
         buttonBrake = (Button)findViewById(R.id.btBrake);
         buttonLeft = (Button)findViewById(R.id.btLeft);
         buttonRight = (Button)findViewById(R.id.btRight);
 
-        buttonAccelerate.setOnTouchListener(onTouchListener);
-        buttonBrake.setOnTouchListener(onTouchListener);
-        buttonLeft.setOnTouchListener(onTouchListener);
-        buttonRight.setOnTouchListener(onTouchListener);
+        buttonAccelerate.setOnTouchListener(this);
+        buttonBrake.setOnTouchListener(this);
+        buttonLeft.setOnTouchListener(this);
+        buttonRight.setOnTouchListener(this);
 
-        onTouchListener = new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                return false;
-            }
-        };
     }
 
 
@@ -83,10 +79,43 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //carMarker.icon(icon);
         //mMap.addMarker(carMarker);
 
-        carMotion = new CarMotion(mMap, carLocation);
+        carMotion = new CarMotion(this, mMap, carLocation, car);
         carMotion.execute();
 
     }
 
 
+    @Override
+    public boolean onTouch(View view, MotionEvent e) {
+        if (view.getId()==buttonAccelerate.getId()) {
+            if (e.getAction() == MotionEvent.ACTION_DOWN)
+                carMotion.updateAcceleration(true);
+            else if (e.getAction() == MotionEvent.ACTION_UP)
+                carMotion.updateAcceleration(false);
+        }
+        else if (view.getId()==buttonBrake.getId()) {
+            if (e.getAction() == MotionEvent.ACTION_DOWN)
+                carMotion.updateBrakes(true);
+            else if (e.getAction() == MotionEvent.ACTION_UP)
+                carMotion.updateBrakes(false);
+        }
+        else if (view.getId()==buttonLeft.getId()) {
+            if (e.getAction() == MotionEvent.ACTION_DOWN)
+                carMotion.updateLeft(true);
+            else if (e.getAction() == MotionEvent.ACTION_UP)
+                carMotion.updateLeft(false);
+        }
+        else if (view.getId()==buttonRight.getId()) {
+            if (e.getAction() == MotionEvent.ACTION_DOWN)
+                carMotion.updateRight(true);
+            else if (e.getAction() == MotionEvent.ACTION_UP)
+                carMotion.updateRight(false);
+        }
+
+        return false;
+    }
+
+    public void rotateCar(float rotation){
+        car.setRotation(rotation);
+    }
 }
