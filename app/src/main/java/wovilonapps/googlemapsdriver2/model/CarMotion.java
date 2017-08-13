@@ -1,4 +1,4 @@
-package wovilonapps.googlemapsdriver2;
+package wovilonapps.googlemapsdriver2.model;
 
 
 import android.content.Context;
@@ -93,25 +93,27 @@ public class CarMotion extends AsyncTask {
 
 
     private void calculateVelocity() {
-        if (acceleratePressed) velocity += 5e-3;     // 0.0000001
-        else if (brakesPressed) {if(velocity>0) velocity -= 1e-2;}
-        else {if(velocity>0) velocity -= 1e-3; else if (velocity>0) velocity += 1e-3;}
+        if (acceleratePressed) velocity += 2e-3;     // 0.0000001
+        else if (brakesPressed) {if(velocity>0) velocity -= 6e-3;}
+        else {if(velocity>0) velocity -= 2e-4; else if (velocity>0) velocity += 2e-4;}
 
-        if (Math.abs(velocity)<1e-3) velocity=0;
+        if (Math.abs(velocity)<1e-4) velocity=0;
     }
 
     private void calculateRotVelocity(){
         if ((leftPressed & rightPressed) | (!leftPressed & !rightPressed)) {
-            if (rotVelocity>0) rotVelocity -=0.1 * velocity * 500000; else rotVelocity +=0.1 * velocity * 500000;
-            if (Math.abs(rotVelocity) < 0.11 * velocity * 500000) rotVelocity = 0; }
+            if (rotVelocity>0) rotVelocity -= 0.3 * velocity; else rotVelocity += 0.3 * velocity; //release of rotation
+            if (Math.abs(rotVelocity) < 0.25 * velocity) rotVelocity = 0; }
 
 
-        else if (leftPressed) rotVelocity -= 0.07 * velocity * 500000;
-        else rotVelocity += 0.07 * velocity * 500000;
+        else if (leftPressed) rotVelocity -= 0.2 * velocity;
+        else rotVelocity += 0.2 * velocity;
 
-        if (rotVelocity>1) rotVelocity = 1; // max rotation speed
-        else if (rotVelocity<-1) rotVelocity = -1;  // max rotation speed
-        if (Math.abs(velocity)<1e-8) rotVelocity=0; //to avoid rotating of car at null velocity
+        if (Math.abs(rotVelocity/velocity)>20) //min "radius" of rotation (in order that car not rotate too fast at low speeds)
+            rotVelocity=velocity * 20 * Math.sin(rotVelocity);
+        if (rotVelocity>0.9) rotVelocity = 0.9; // max rotation speed
+        else if (rotVelocity<-0.9) rotVelocity = -0.9;  // max rotation speed
+        if (Math.abs(velocity)<1e-4) rotVelocity=0; //to avoid rotating of car at null velocity
     }
 
 
