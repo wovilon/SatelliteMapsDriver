@@ -32,7 +32,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/car"
-        android:rotation="30"
+        android:rotation="270"
         android:scaleX="0.2"
         android:scaleY="0.2"
         app:layout_constraintBottom_toBottomOf="@+id/map"

@@ -1,4 +1,4 @@
-package wovilonapps.googlemapsdriver2.Model;
+package wovilonapps.googlemapsdriver2.model;
 
 
 

@@ -1,4 +1,4 @@
-package wovilonapps.googlemapsdriver2.Model;
+package wovilonapps.googlemapsdriver2;
 
 
 import android.content.Context;
@@ -11,6 +11,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import wovilonapps.googlemapsdriver2.R;
+import wovilonapps.googlemapsdriver2.google_libraries.SphericalUtil;
 
 
 public class CarMotion extends AsyncTask {
@@ -23,11 +24,12 @@ public class CarMotion extends AsyncTask {
     private double velocity = 0;
     private LatLng carLocation;
     private double rotation = 90;
+    private double rotVelocity = 0;
 
-    int iterationTime = 20;
+    private int iterationTime = 20;
     int acceleratePressedTime, brakePressedTime, rightPressedTime, leftPressedTime;
     int accelerateUnpressedTime, brakeUnpressedTime, rightUnpressedTime, leftUnpressedTime;
-    boolean acceleratePressed = false, brakesPressed = false, rightPressed = false, leftPressed = false;
+    private boolean acceleratePressed = false, brakesPressed = false, rightPressed = false, leftPressed = false;
 
     public CarMotion(Context context, GoogleMap googleMap, LatLng position, Button carButton) {
         mMap = googleMap;
@@ -42,11 +44,11 @@ public class CarMotion extends AsyncTask {
         while (running) {
 
             calculateVelocity();
-            calculateRotation();
-
-            carLocation = new LatLng(carLocation.latitude + velocity * Math.sin(Math.toRadians(rotation)),
-                    carLocation.longitude + velocity * Math.cos(Math.toRadians(rotation)));
-
+            calculateRotVelocity();
+            rotation += rotVelocity;
+            /*carLocation = new LatLng(carLocation.latitude + velocity * Math.sin(Math.toRadians(rotation)),
+                    carLocation.longitude + velocity * Math.cos(Math.toRadians(rotation)));*/
+            carLocation = SphericalUtil.computeOffset(carLocation, velocity, rotation);
 
             publishProgress();
             try {
@@ -61,7 +63,7 @@ public class CarMotion extends AsyncTask {
     @Override
     protected void onProgressUpdate(Object[] values) {
         super.onProgressUpdate(values);
-
+        car.setRotation((float)rotation);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(
                 carLocation));
         //carMarker.position(carLocation);
@@ -91,16 +93,25 @@ public class CarMotion extends AsyncTask {
 
 
     private void calculateVelocity() {
-        if (acceleratePressed) velocity += 1e-7;     // 0.0000001
-        else if (brakesPressed) {if(velocity>0) velocity -= 1e-6;}
-        else {if(velocity>0) velocity -= 2e-8;}
+        if (acceleratePressed) velocity += 5e-3;     // 0.0000001
+        else if (brakesPressed) {if(velocity>0) velocity -= 1e-2;}
+        else {if(velocity>0) velocity -= 1e-3; else if (velocity>0) velocity += 1e-3;}
 
+        if (Math.abs(velocity)<1e-3) velocity=0;
     }
 
-    private void calculateRotation(){
-        if ((leftPressed & rightPressed) | (!leftPressed & !rightPressed)) rotation+=0;
-        else if (leftPressed) rotation += 1;
-        else rotation -= 1;
+    private void calculateRotVelocity(){
+        if ((leftPressed & rightPressed) | (!leftPressed & !rightPressed)) {
+            if (rotVelocity>0) rotVelocity -=0.1 * velocity * 500000; else rotVelocity +=0.1 * velocity * 500000;
+            if (Math.abs(rotVelocity) < 0.11 * velocity * 500000) rotVelocity = 0; }
+
+
+        else if (leftPressed) rotVelocity -= 0.07 * velocity * 500000;
+        else rotVelocity += 0.07 * velocity * 500000;
+
+        if (rotVelocity>1) rotVelocity = 1; // max rotation speed
+        else if (rotVelocity<-1) rotVelocity = -1;  // max rotation speed
+        if (Math.abs(velocity)<1e-8) rotVelocity=0; //to avoid rotating of car at null velocity
     }
 
 
