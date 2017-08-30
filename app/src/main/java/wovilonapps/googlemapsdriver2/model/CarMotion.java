@@ -2,15 +2,12 @@ package wovilonapps.googlemapsdriver2.model;
 
 
 import android.content.Context;
-import android.graphics.Point;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Button;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
-import wovilonapps.googlemapsdriver2.R;
 import wovilonapps.googlemapsdriver2.google_libraries.SphericalUtil;
 
 
