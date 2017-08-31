@@ -12,13 +12,13 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 
-import wovilonapps.googlemapsdriver2.model.CarMotion;
+import wovilonapps.googlemapsdriver2.model.TwoPointsCarMotion;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, View.OnTouchListener {
 
     private GoogleMap mMap;
-    private CarMotion carMotion;
+    private TwoPointsCarMotion carMotion;
     private Button buttonAccelerate, buttonBrake, buttonLeft, buttonRight;
     private Button car;
 
@@ -74,7 +74,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //carMarker.icon(icon);
         //mMap.addMarker(carMarker);
 
-        carMotion = new CarMotion(this, mMap, carLocation, car);
+        carMotion = new TwoPointsCarMotion(this, mMap, carLocation, car);
         carMotion.execute();
 
     }

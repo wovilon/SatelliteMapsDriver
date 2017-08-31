@@ -11,11 +11,12 @@ import com.google.android.gms.maps.model.LatLng;
 import wovilonapps.googlemapsdriver2.google_libraries.SphericalUtil;
 
 
-public class CarMotion extends AsyncTask {
+public class OnePointCarMotion extends AsyncTask {
     private GoogleMap mMap;
     private boolean running = true;
     Context context;
     Button car;
+
 
     private double acceleration = 0;
     private double velocity = 0;
@@ -23,12 +24,12 @@ public class CarMotion extends AsyncTask {
     private double rotation = 90;
     private double rotVelocity = 0;
 
-    private int iterationTime = 20;
+    private int dt = 20; //time iteration time, ms
     int acceleratePressedTime, brakePressedTime, rightPressedTime, leftPressedTime;
     int accelerateUnpressedTime, brakeUnpressedTime, rightUnpressedTime, leftUnpressedTime;
     private boolean acceleratePressed = false, brakesPressed = false, rightPressed = false, leftPressed = false;
 
-    public CarMotion(Context context, GoogleMap googleMap, LatLng position, Button carButton) {
+    public OnePointCarMotion(Context context, GoogleMap googleMap, LatLng position, Button carButton) {
         mMap = googleMap;
         carLocation = position;
         this.context = context;
@@ -43,15 +44,15 @@ public class CarMotion extends AsyncTask {
             calculateVelocity();
             calculateRotVelocity();
             rotation += rotVelocity;
-            /*carLocation = new LatLng(carLocation.latitude + velocity * Math.sin(Math.toRadians(rotation)),
-                    carLocation.longitude + velocity * Math.cos(Math.toRadians(rotation)));*/
+            /*carLocation = new LatLng(carLocation.latitude + v1 * Math.sin(Math.toRadians(rotation)),
+                    carLocation.longitude + v1 * Math.cos(Math.toRadians(rotation)));*/
             carLocation = SphericalUtil.computeOffset(carLocation, velocity, rotation);
 
             publishProgress();
             try {
-                Thread.sleep(iterationTime);
+                Thread.sleep(dt);
             } catch (InterruptedException ie) {
-                Log.d("MyLOG", "Interrupted exception in CarMotion");
+                Log.d("MyLOG", "Interrupted exception in OnePointCarMotion");
             }
         }
         return null;
@@ -61,8 +62,7 @@ public class CarMotion extends AsyncTask {
     protected void onProgressUpdate(Object[] values) {
         super.onProgressUpdate(values);
         car.setRotation((float)rotation);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(
-                carLocation));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(carLocation));
         //carMarker.position(carLocation);
         //mMap.clear();
         //mMap.addMarker(carMarker);
@@ -110,7 +110,7 @@ public class CarMotion extends AsyncTask {
             rotVelocity=velocity * 20 * Math.sin(rotVelocity);
         if (rotVelocity>0.9) rotVelocity = 0.9; // max rotation speed
         else if (rotVelocity<-0.9) rotVelocity = -0.9;  // max rotation speed
-        if (Math.abs(velocity)<1e-4) rotVelocity=0; //to avoid rotating of car at null velocity
+        if (Math.abs(velocity)<1e-4) rotVelocity=0; //to avoid rotating of car at null v1
     }
 
 
