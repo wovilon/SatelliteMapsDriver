@@ -21,12 +21,13 @@ public class TwoPointsCarMotion extends AsyncTask {
 
     private double m1 = 500;    // mass of front axis, kg
     private double m2 = 700;    // mass of back axis, kg
-    private double Fp_max = 6000;    // force of car power, N   //TODO to high power, 800 is normal
+    private double Fp_max = 5000;    // force of car power, N   //TODO to high power, 800 is normal
     private double Fb_max = Fp_max * 1.5;
 
     private double Fp = 0;        // current force of car power, N
     private double Fr = 0;    // current force of resistance, N
     private double Fb = 0;     //current force of steering (brakes), N
+
 
     private double l = 3;       // car length (between axis), m
     private double a1 = 0;      // acceleration of m1
@@ -40,8 +41,8 @@ public class TwoPointsCarMotion extends AsyncTask {
     private double v_car = 0; //velocity of car (center of the car)
     private double alpha_wheels = 0; //angle of wheels rotation (relative to car)
     private double alpha_wheels_max = 45; //maximum angle of wheels rotation
-    private double wheel_speed = 30; // speed of wheel rotation, degrees/s
-    private double wheel_speed_release = 45; // speed of wheel release, degrees/s
+    private double wheel_speed = 40; // speed of wheel rotation, degrees/s
+    private double wheel_speed_release = 60; // speed of wheel release, degrees/s
 
 
     private int iterationTime = 20; //time iteration interval, ms
@@ -113,16 +114,17 @@ public class TwoPointsCarMotion extends AsyncTask {
 
 
     private void calculateAlphaWheels(){
+        double max = Math.abs(alpha_wheels_max) - (1.2 * v1); //TODO fictive growth steering radius with speed up
         if (Math.abs(alpha_wheels) <= alpha_wheels_max) {
-            if (rightPressed) alpha_wheels += wheel_speed * dt;
-            if (leftPressed) alpha_wheels -= wheel_speed * dt;
+            if (rightPressed & alpha_wheels<max) alpha_wheels += wheel_speed * dt;
+            if (leftPressed & alpha_wheels>-max) alpha_wheels -= wheel_speed * dt;
         }
         if (!rightPressed & !leftPressed)
             alpha_wheels += Math.signum(alpha_wheels) * (-1) * wheel_speed_release * dt;
     }
 
     private void calculateAcceleration() {
-        Fr = v1 * 300;
+        Fr = v1 * 150;
 
         a1 = ( Fp - Fr - Fb ) / (m1+m2); //absolute value - m1*a1 - m2*a1*Math.cos(Math.toRadians(alpha_wheels))
 
