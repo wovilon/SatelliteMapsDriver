@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">GoogleMapsDriver2</string>
     <string name="title_activity_maps">Map</string>
+    <string name="New_game">New game</string>
+    <string name="Free_game">Free game</string>
+    <string name="Settings">Settings</string>
+    <string name="Contacts">Contacts</string>
+
 </resources>
