@@ -16,6 +16,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 
+import wovilonapps.googlemapsdriver2.model.Car;
 import wovilonapps.googlemapsdriver2.model.TwoPointsCarMotion;
 
 
@@ -88,7 +89,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //carMarker.icon(icon);
         //mMap.addMarker(carMarker);
 
-        carMotion = new TwoPointsCarMotion(this, mMap, carLocation, car, trailer);
+        carMotion = new TwoPointsCarMotion(this, mMap, carLocation, car, trailer, new Car(this));
         carMotion.execute();
 
     }

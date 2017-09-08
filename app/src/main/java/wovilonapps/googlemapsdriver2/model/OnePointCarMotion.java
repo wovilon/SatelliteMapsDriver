@@ -106,11 +106,11 @@ public class OnePointCarMotion extends AsyncTask {
         else if (leftPressed) rotVelocity -= 0.2 * velocity;
         else rotVelocity += 0.2 * velocity;
 
-        if (Math.abs(rotVelocity/velocity)>20) //min "radius" of rotation (in order that car not rotate too fast at low speeds)
+        if (Math.abs(rotVelocity/velocity)>20) //min "radius" of rotation (in order that carView not rotate too fast at low speeds)
             rotVelocity=velocity * 20 * Math.sin(rotVelocity);
         if (rotVelocity>0.9) rotVelocity = 0.9; // max rotation speed
         else if (rotVelocity<-0.9) rotVelocity = -0.9;  // max rotation speed
-        if (Math.abs(velocity)<1e-4) rotVelocity=0; //to avoid rotating of car at null v1
+        if (Math.abs(velocity)<1e-4) rotVelocity=0; //to avoid rotating of carView at null v1
     }
 
 
