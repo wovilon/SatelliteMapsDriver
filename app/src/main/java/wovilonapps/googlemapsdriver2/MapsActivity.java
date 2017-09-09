@@ -1,12 +1,9 @@
 package wovilonapps.googlemapsdriver2;
 
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -16,7 +13,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 
-import wovilonapps.googlemapsdriver2.model.Car;
 import wovilonapps.googlemapsdriver2.model.CarModels;
 import wovilonapps.googlemapsdriver2.model.TwoPointsCarMotion;
 
@@ -91,7 +87,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //mMap.addMarker(carMarker);
 
         carMotion = new TwoPointsCarMotion(this, mMap, carLocation, car, trailer,
-                new CarModels(this).getSportCar());
+                new CarModels(this).getWeakTruck());
         carMotion.execute();
 
     }
