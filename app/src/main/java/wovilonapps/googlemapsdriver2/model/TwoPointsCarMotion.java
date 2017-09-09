@@ -71,6 +71,7 @@ public class TwoPointsCarMotion extends AsyncTask {
         this.m2 = car.m2;
         this.m3 = car.m3;
         this.Fp_max = car.Fp_max;
+        this.Fb_max = car.Fb_max;
         this.l = car.l;
         this.lt = car.lt;
         this.alpha_wheels_max = car.alpha_wheels_max;
@@ -137,13 +138,14 @@ public class TwoPointsCarMotion extends AsyncTask {
 
 
     private void calculateAlphaWheels(){
-        double max = Math.abs(alpha_wheels_max) - (1.2 * v1); //TODO fictive growth steering radius with speed up
-        if (Math.abs(alpha_wheels) <= alpha_wheels_max) {
-            if (rightPressed & alpha_wheels<max) alpha_wheels += wheel_speed * dt;
-            if (leftPressed & alpha_wheels>-max) alpha_wheels -= wheel_speed * dt;
-        }
+        double max = Math.abs(alpha_wheels_max) - (0.9 * v1); //TODO fictive growth steering radius with speed up
+        if (Math.abs(alpha_wheels) >= max) alpha_wheels = max * Math.signum(alpha_wheels);
+
+        if (rightPressed) alpha_wheels += wheel_speed * dt;
+        if (leftPressed) alpha_wheels -= wheel_speed * dt;
+
         if (!rightPressed & !leftPressed)
-            alpha_wheels += Math.signum(alpha_wheels) * (-1) * wheel_speed_release * dt;
+            alpha_wheels -= Math.signum(alpha_wheels) * wheel_speed_release * dt;
     }
 
     private void calculateAcceleration() {

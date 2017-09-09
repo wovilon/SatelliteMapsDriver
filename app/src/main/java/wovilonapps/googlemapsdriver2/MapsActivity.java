@@ -17,6 +17,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 
 import wovilonapps.googlemapsdriver2.model.Car;
+import wovilonapps.googlemapsdriver2.model.CarModels;
 import wovilonapps.googlemapsdriver2.model.TwoPointsCarMotion;
 
 
@@ -27,7 +28,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Button buttonAccelerate, buttonBrake, buttonLeft, buttonRight;
     private ImageView car;
     private ImageView trailer;
-    double scaleCoeff;      // shows scale of car image, = car img width, pixels / view width, dpi
+    double scaleCoeff;      // shows scale of car0 image, = car0 img width, pixels / view width, dpi
 
 
     @Override
@@ -43,8 +44,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         car = (ImageView)findViewById(R.id.car);
         trailer = (ImageView) findViewById(R.id.trailer);
-        /*ViewGroup.LayoutParams params = car.getLayoutParams();
-        car.setLayoutParams(params);*/
+        /*ViewGroup.LayoutParams params = car0.getLayoutParams();
+        car0.setLayoutParams(params);*/
 
 
 
@@ -81,7 +82,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                 new LatLng(carLocation.latitude, carLocation.longitude), 20.1f));
 
-        //Bitmap carBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.car);
+        //Bitmap carBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.car0);
         //carBitmap = Bitmap.createScaledBitmap(carBitmap, 100, 100, false);
 
         //BitmapDescriptor icon = BitmapDescriptorFactory.fromBitmap(carBitmap);
@@ -89,7 +90,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //carMarker.icon(icon);
         //mMap.addMarker(carMarker);
 
-        carMotion = new TwoPointsCarMotion(this, mMap, carLocation, car, trailer, new Car(this));
+        carMotion = new TwoPointsCarMotion(this, mMap, carLocation, car, trailer,
+                new CarModels(this).getSportCar());
         carMotion.execute();
 
     }
