@@ -5,5 +5,9 @@
     <string name="Free_game">Free game</string>
     <string name="Settings">Settings</string>
     <string name="Contacts">Contacts</string>
+    <string name="Career">Career</string>
+    <string name="SelectCar">Select car</string>
+    <string name="SelectPlace">Select place</string>
+    <string name="Play">Play</string>
 
 </resources>

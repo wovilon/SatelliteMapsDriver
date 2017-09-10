@@ -87,7 +87,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //mMap.addMarker(carMarker);
 
         carMotion = new TwoPointsCarMotion(this, mMap, carLocation, car, trailer,
-                new CarModels(this).getWeakTruck());
+                new CarModels(this).getPowerfulTruck());
         carMotion.execute();
 
     }

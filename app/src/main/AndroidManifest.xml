@@ -39,7 +39,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".MapsActivity" />
-        <activity android:name=".MenuActivity"></activity>
+        <activity android:name=".MenuActivity" />
+        <activity android:name=".FreeGameSettingsActivity" />
+        <activity android:name=".CarsListActivity"></activity>
     </application>
 
 </manifest>

@@ -20,7 +20,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void onBtFreeGameClick(View view) {
-        Intent intent = new Intent(this, MapsActivity.class);
+        Intent intent = new Intent(this, FreeGameSettingsActivity.class);
         startActivity(intent);
     }
 }
