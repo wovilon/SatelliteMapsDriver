@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/menu_background"
-    tools:context="wovilonapps.googlemapsdriver2.CarsListActivity">
+    tools:context="wovilonapps.googlemapsdriver2.LocationListActivity">
 
     <ListView
-        android:id="@+id/CarsListView"
+        android:id="@+id/LocationListView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

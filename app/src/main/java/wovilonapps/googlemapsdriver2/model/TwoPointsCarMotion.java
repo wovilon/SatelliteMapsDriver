@@ -57,16 +57,16 @@ public class TwoPointsCarMotion extends AsyncTask {
 
     private boolean acceleratePressed = false, brakesPressed = false, rightPressed = false, leftPressed = false;
 
-    public TwoPointsCarMotion(Context context, GoogleMap googleMap, LatLng location, ImageView carView,
-                              ImageView trailerView, Car car) {
+    public TwoPointsCarMotion(Context context, GoogleMap googleMap, ImageView carView,
+                              ImageView trailerView, GameManager gameManager) {
         mMap = googleMap;
-        carLocation = location;
+        carLocation = new LocationsBase().locations.get(gameManager.getLocationNumber()).latLng;
         this.context = context;
         this.carView = carView;
         this.trailerView = trailerView;
         if (lt == 0) trailerView.setVisibility(View.INVISIBLE);
 
-        this.car = car;
+        this.car = new CarModels(context).getAllCars().get(gameManager.getCarNumber());
         this.m1 = car.m1;
         this.m2 = car.m2;
         this.m3 = car.m3;

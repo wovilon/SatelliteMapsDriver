@@ -2,27 +2,30 @@ package wovilonapps.googlemapsdriver2.model;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.Serializable;
 
-public class GameManager {
+
+public class GameManager implements Serializable {
     private Car car;
-    private LatLng location;
+    private GameLocation location;
+    private int carNumber;
+    private int locationNumber;
 
 
 
-
-    public Car getCar() {
-        return car;
+    public int getCarNumber() {
+        return carNumber;
     }
 
-    public void setCar(Car car) {
-        this.car = car;
+    public int getLocationNumber() {
+        return locationNumber;
     }
 
-    public void setLocation(LatLng location) {
-        this.location = location;
+    public void setCarNumber(int carNumber) {
+        this.carNumber = carNumber;
     }
 
-    public LatLng getLocation() {
-        return location;
+    public void setLocationNumber(int locationNumber) {
+        this.locationNumber = locationNumber;
     }
 }

@@ -41,7 +41,8 @@
         <activity android:name=".MapsActivity" />
         <activity android:name=".MenuActivity" />
         <activity android:name=".FreeGameSettingsActivity" />
-        <activity android:name=".CarsListActivity"></activity>
+        <activity android:name=".CarsListActivity" />
+        <activity android:name=".LocationListActivity"></activity>
     </application>
 
 </manifest>

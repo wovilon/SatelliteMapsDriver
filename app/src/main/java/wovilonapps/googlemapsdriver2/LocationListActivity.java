@@ -13,37 +13,36 @@ import java.util.HashMap;
 import java.util.Map;
 
 import wovilonapps.googlemapsdriver2.binders.ViewBinder;
-import wovilonapps.googlemapsdriver2.model.Car;
 import wovilonapps.googlemapsdriver2.model.CarModels;
+import wovilonapps.googlemapsdriver2.model.LocationsBase;
 
-public class CarsListActivity extends AppCompatActivity {
-ListView listView;
+public class LocationListActivity extends AppCompatActivity {
+    ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cars_list);
+        setContentView(R.layout.activity_location_list);
 
-        listView = (ListView)findViewById(R.id.CarsListView);
+        listView = (ListView)findViewById(R.id.LocationListView);
 
         String caption = "Caption";
-        String image = "Image";
+        //String latlng = "LatLng";
         ArrayList<Map<String,Object>> data = new ArrayList<>();
         Map<String, Object> m;
-        CarModels carModels = new CarModels(this);
+        LocationsBase locationsBase = new LocationsBase();
 
-        for (int i=0; i<carModels.getAllCars().size(); i++){
+        for (int i=0; i<locationsBase.locations.size(); i++){
             m = new HashMap<>();
-            m.put(caption, carModels.getAllCars().get(i).model);
-            m.put(image, carModels.getAllCars().get(i).carBitmap);
+            m.put(caption, locationsBase.locations.get(i).caption);
+            //m.put(latlng, locationsBase.locations.get(i).latLng);
             data.add(m);
         }
 
-        String[] from = {caption, image};
-        int[] to = {R.id.itemCaption, R.id.itemImage};
+        String[] from = {caption};
+        int[] to = {R.id.itemLocationCaption};
 
-        final SimpleAdapter adapter = new SimpleAdapter(this, data, R.layout.cars_list_item, from, to);
-        adapter.setViewBinder(new ViewBinder());
+        final SimpleAdapter adapter = new SimpleAdapter(this, data, R.layout.locations_list_item, from, to);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -55,8 +54,8 @@ ListView listView;
 
     void returnResult(int i){
         Intent resultIntent=new Intent();
-        resultIntent.putExtra("type", "car");
-        resultIntent.putExtra("carNumber",i);
+        resultIntent.putExtra("type", "location");
+        resultIntent.putExtra("locationNumber", i);
         setResult(RESULT_OK, resultIntent);
         finish();
     }

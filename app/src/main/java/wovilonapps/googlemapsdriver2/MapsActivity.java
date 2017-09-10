@@ -13,7 +13,10 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.ArrayList;
+
 import wovilonapps.googlemapsdriver2.model.CarModels;
+import wovilonapps.googlemapsdriver2.model.GameManager;
 import wovilonapps.googlemapsdriver2.model.TwoPointsCarMotion;
 
 
@@ -25,6 +28,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ImageView car;
     private ImageView trailer;
     double scaleCoeff;      // shows scale of car0 image, = car0 img width, pixels / view width, dpi
+    GameManager gameManager;
 
 
     @Override
@@ -43,8 +47,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         /*ViewGroup.LayoutParams params = car0.getLayoutParams();
         car0.setLayoutParams(params);*/
 
-
-
         buttonAccelerate = (Button)findViewById(R.id.btAccelerate);
         buttonBrake = (Button)findViewById(R.id.btBrake);
         buttonLeft = (Button)findViewById(R.id.btLeft);
@@ -54,6 +56,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         buttonBrake.setOnTouchListener(this);
         buttonLeft.setOnTouchListener(this);
         buttonRight.setOnTouchListener(this);
+
+        gameManager =(GameManager) getIntent().getExtras().getSerializable("gameManagerArray");
+
 
     }
 
@@ -86,8 +91,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //carMarker.icon(icon);
         //mMap.addMarker(carMarker);
 
-        carMotion = new TwoPointsCarMotion(this, mMap, carLocation, car, trailer,
-                new CarModels(this).getPowerfulTruck());
+        carMotion = new TwoPointsCarMotion(this, mMap, car, trailer,
+                gameManager);
         carMotion.execute();
 
     }
