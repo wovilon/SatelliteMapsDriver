@@ -6,8 +6,6 @@ import java.io.Serializable;
 
 
 public class GameManager implements Serializable {
-    private Car car;
-    private GameLocation location;
     private int carNumber;
     private int locationNumber;
 
