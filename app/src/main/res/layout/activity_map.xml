@@ -25,10 +25,11 @@
         android:id="@+id/btAccelerate"
         android:layout_width="70dp"
         android:layout_height="100dp"
-        android:layout_marginBottom="0dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:alpha="0.5"
+        android:background="@drawable/button_throttle"
         app:layout_constraintBottom_toTopOf="@+id/btBrake"
         app:layout_constraintLeft_toLeftOf="@+id/btBrake"
         app:layout_constraintRight_toRightOf="@+id/btBrake" />
@@ -36,32 +37,48 @@
     <Button
         android:id="@+id/btBrake"
         android:layout_width="70dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="67dp"
-        android:layout_marginLeft="8dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
         android:alpha="0.5"
+        android:background="@drawable/bt_brakes"
+        android:rotation="0"
+        app:layout_constraintBottom_toTopOf="@+id/btReverse"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <Button
+        android:id="@+id/btReverse"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="58dp"
+        android:layout_marginLeft="16dp"
+        android:alpha="0.5"
+        android:background="@drawable/button_throttle"
+        android:onClick="onButtonBackClick"
+        android:rotation="180"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent" />
 
     <Button
         android:id="@+id/btLeft"
         android:layout_width="80dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="80dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
         android:alpha="0.5"
-        app:layout_constraintBottom_toBottomOf="@+id/btRight"
-        app:layout_constraintRight_toLeftOf="@+id/btRight"
-        app:layout_constraintTop_toTopOf="@+id/btRight" />
+        android:background="@drawable/button_throttle"
+        android:rotation="270"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btRight"
+        app:layout_constraintRight_toLeftOf="@+id/btRight" />
 
     <Button
         android:id="@+id/btRight"
         android:layout_width="80dp"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:layout_marginBottom="95dp"
-        android:layout_marginRight="7dp"
+        android:layout_marginRight="8dp"
         android:alpha="0.5"
+        android:background="@drawable/button_throttle"
+        android:rotation="90"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
@@ -91,9 +108,10 @@
         android:scaleType="center"
         android:src="@drawable/trailer"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
-        app:layout_constraintLeft_toLeftOf="@+id/btAccelerate"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toLeftOf="@+id/map"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/map" />
+        app:layout_constraintTop_toTopOf="@+id/map"
+        app:layout_constraintVertical_bias="0.501" />
 
 </android.support.constraint.ConstraintLayout>

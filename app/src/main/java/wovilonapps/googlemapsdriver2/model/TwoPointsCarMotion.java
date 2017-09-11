@@ -55,7 +55,8 @@ public class TwoPointsCarMotion extends AsyncTask {
     private int iterationTime = 20; //time iteration interval, ms
     private double dt = ((double)iterationTime)/1000; //time interval, s
 
-    private boolean acceleratePressed = false, brakesPressed = false, rightPressed = false, leftPressed = false;
+    private boolean acceleratePressed = false, brakesPressed = false, rightPressed = false, leftPressed = false,
+        reversePressed = false;
 
     public TwoPointsCarMotion(Context context, GoogleMap googleMap, ImageView carView,
                               ImageView trailerView, GameManager gameManager) {
@@ -119,6 +120,10 @@ public class TwoPointsCarMotion extends AsyncTask {
     public void updateAcceleration(boolean on) {
         if (on) {acceleratePressed = true; Fp = Fp_max;}
         else {acceleratePressed = false; Fp = 0;}
+    }
+    public void updateReverse(boolean on) {
+        if (on) {reversePressed = true; Fp = -Fp_max/2;}
+        else {reversePressed = false; Fp = 0;}
     }
 
     public void updateBrakes(boolean on) {
