@@ -122,7 +122,7 @@ public class TwoPointsCarMotion extends AsyncTask {
         else {acceleratePressed = false; Fp = 0;}
     }
     public void updateReverse(boolean on) {
-        if (on) {reversePressed = true; Fp = -Fp_max/2;}
+        if (on) {reversePressed = true; Fp = -Fp_max;}
         else {reversePressed = false; Fp = 0;}
     }
 
@@ -156,9 +156,9 @@ public class TwoPointsCarMotion extends AsyncTask {
 
     private void calculateAcceleration() {
         Fr = v1 * 0.2 * (m1 + m2);
-        if (v1 < 0.1) Fb = 0;
+        if (Math.abs(v1) < 0.1) Fb = 0; //to avoid infinity low speed motion
 
-        a1 = ( Fp - Fr - Fb ) / (m1+m2+m3); //absolute value - m1*a1 - m2*a1*Math.cos(Math.toRadians(alpha_wheels))
+        a1 = ( Fp - ( (v1>=0)?+1:-1 ) * (Fr + Fb) ) / (m1+m2+m3); //absolute value
 
         alfa_a1 = alpha_car + alpha_wheels;
     }
@@ -183,7 +183,7 @@ public class TwoPointsCarMotion extends AsyncTask {
         double xcar_new = x1_new - (l/2) * Math.cos(Math.toRadians(alpha_car)); // hypotenuse divite opposite catet
         double ycar_new = y1_new - (l/2) * Math.sin(Math.toRadians(alpha_car));
 
-        dS_car = Math.sqrt(Math.pow(xcar_new, 2) + Math.pow(ycar_new, 2));
+        dS_car = Math.sqrt(Math.pow(xcar_new, 2) + Math.pow(ycar_new, 2)) * Math.signum(v1);
 
         double x2_new = x1_new - (l) * Math.cos(Math.toRadians(alpha_car)); // like xcar_new equation
         double y2_new = y1_new - (l) * Math.sin(Math.toRadians(alpha_car));
