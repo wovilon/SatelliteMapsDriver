@@ -155,10 +155,11 @@ public class TwoPointsCarMotion extends AsyncTask {
     }
 
     private void calculateAcceleration() {
-        Fr = v1 * 0.2 * (m1 + m2);
+        Fr = v1 * 0.1 * (m1 + m2) + 400 * Math.signum(v1);
         if (Math.abs(v1) < 0.1) Fb = 0; //to avoid infinity low speed motion
 
-        a1 = ( Fp - ( (v1>=0)?+1:-1 ) * (Fr + Fb) ) / (m1+m2+m3); //absolute value
+
+        a1 = ( Fp - Fr - ( (v1>=0)?+1:-1 ) * (Fb) ) / (m1+m2+m3); //absolute value
 
         alfa_a1 = alpha_car + alpha_wheels;
     }
@@ -166,6 +167,7 @@ public class TwoPointsCarMotion extends AsyncTask {
     private void calculateVelocity() {
         v1 += a1 * dt;
         alpha_v1 = alpha_car + alpha_wheels;
+        if (v1 < -5) v1 = -5; // backward speed limit
     }
 
     private void calculateDeltaPosition(){   // not location!
