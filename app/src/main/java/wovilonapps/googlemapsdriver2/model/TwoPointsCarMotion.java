@@ -214,6 +214,17 @@ public class TwoPointsCarMotion extends AsyncTask {
 
     }
 
+/*
+    public void onPause(){
+        running = false;
+    }
+
+    public void onResume(){
+        running = true;
+        Object[] objects = new Object[0];   //TODO: this argument is not needed
+        doInBackground(objects);
+    }
+*/
 
 
 }

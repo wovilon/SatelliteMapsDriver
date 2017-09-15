@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -15,8 +16,10 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
     }
 
-    public void onBtNewGameCkick(View view) {
-
+    public void onBtNewGameClick(View view) {
+        Toast toast = Toast.makeText(getApplicationContext(),
+                "CAREER IS NOT AVAILABLE IN ALPHA VERSION. TRY FREE GAME!!", Toast.LENGTH_LONG);
+        toast.show();
     }
 
     public void onBtFreeGameClick(View view) {

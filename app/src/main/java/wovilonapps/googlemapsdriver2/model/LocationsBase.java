@@ -10,8 +10,8 @@ public ArrayList<GameLocation> locations;
     public LocationsBase(){
         locations = new ArrayList<>();
 
-        locations.add(new GameLocation("Default location1, city", new LatLng(40.653834, -73.865783)));
-        locations.add(new GameLocation("New York, USA, city center", new LatLng(40.768004, -73.970275)));
+            locations.add(new GameLocation("New York, USA, city", new LatLng(40.653834, -73.865783)));
+        //locations.add(new GameLocation("New York, USA, city center", new LatLng(40.768004, -73.970275)));
         locations.add(new GameLocation("New York, USA, outskirts", new LatLng(40.865973, -73.593799)));
         locations.add(new GameLocation("Las Vegas, USA, city center", new LatLng(36.166683, -115.152833)));
         locations.add(new GameLocation("Paris, France, city center", new LatLng(48.858962, 2.293221)));

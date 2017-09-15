@@ -6,6 +6,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -58,9 +59,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         gameManager =(GameManager) getIntent().getExtras().getSerializable("gameManagerArray");
 
-
     }
-
 
     /**
      * Manipulates the map once available.
@@ -71,6 +70,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -93,6 +93,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         carMotion = new TwoPointsCarMotion(this, mMap, car, trailer,
                 gameManager);
         carMotion.execute();
+        Toast toast = Toast.makeText(getApplicationContext(),
+                "Please, wait till map loads. It depends on internet speed.", Toast.LENGTH_SHORT);
+        toast.show();
 
     }
 
@@ -134,4 +137,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return false;
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        System.exit(0);     //TODO: not exit, but should normally play other level
+    }
+
+    /*    @Override
+    protected void onPause() {
+        super.onPause();
+        carMotion.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (carMotion != null) carMotion.onResume();
+    }*/
 }

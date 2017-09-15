@@ -66,19 +66,19 @@ public class CarModels {
 
 
     public Car getWeakTruck(){
-        String model = "Weak truck";
+        String model = "Truck";
         double m1 = 5000;
         double m2 = 2000;
-        double m3 = 7000 + 15000;
+        double m3 = 0;
         double Fp_max = 15000;
         double Fb_max = 80000;
         double l = 3;
-        double lt = 7;
+        double lt = 0;
         double alpha_wheels_max = 45;
         double wheel_speed = 25;
         double wheel_speed_release = wheel_speed * 0.9;
         Bitmap carBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.tractor_weak);
-        Bitmap trailerBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.trailer);
+        Bitmap trailerBitmap = null;
 
         return new Car(context,model, m1, m2, m3, Fp_max, Fb_max, l, lt, alpha_wheels_max,
                 wheel_speed,wheel_speed_release, carBitmap, trailerBitmap);
@@ -86,7 +86,7 @@ public class CarModels {
 
 
     public Car getPowerfulTruck(){
-        String model = "Powerful truck";
+        String model = "Truck with trailer";
         double m1 = 5000;
         double m2 = 2000;
         double m3 = 7000 + 15000;

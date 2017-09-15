@@ -6,9 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-
 import wovilonapps.googlemapsdriver2.model.Car;
 import wovilonapps.googlemapsdriver2.model.CarModels;
 import wovilonapps.googlemapsdriver2.model.GameLocation;
@@ -45,24 +42,26 @@ public class FreeGameSettingsActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        //if it is result from CarsListActivity
-        if (data.getStringExtra("type").equals("car")) {
-            int carNumber = data.getIntExtra("carNumber", 0);
-            Car car = new CarModels(this).getAllCars().get(carNumber);
-            gameManager.setCarNumber(carNumber);
-            imageViewCar.setImageBitmap(car.carBitmap);
-            if (car.trailerBitmap != null) {
-                imageViewTrailer.setImageBitmap(car.trailerBitmap);
-                imageViewTrailer.setVisibility(View.VISIBLE);
-            } else imageViewTrailer.setVisibility(View.INVISIBLE);
-        }
+        if (data != null) {
+            //if it is result from CarsListActivity
+            if (data.getStringExtra("type").equals("car")) {
+                int carNumber = data.getIntExtra("carNumber", 0);
+                Car car = new CarModels(this).getAllCars().get(carNumber);
+                gameManager.setCarNumber(carNumber);
+                imageViewCar.setImageBitmap(car.carBitmap);
+                if (car.trailerBitmap != null) {
+                    imageViewTrailer.setImageBitmap(car.trailerBitmap);
+                    imageViewTrailer.setVisibility(View.VISIBLE);
+                } else imageViewTrailer.setVisibility(View.INVISIBLE);
+            }
 
-        //if it is result from LocationsListActivity
-        else if (data.getStringExtra("type").equals("location")){
-            int locationNumber = data.getIntExtra("locationNumber", 0);
-            GameLocation gameLocation = new LocationsBase().locations.get(locationNumber);
-            gameManager.setLocationNumber(locationNumber);
-            location.setText(gameLocation.caption);
+            //if it is result from LocationsListActivity
+            else if (data.getStringExtra("type").equals("location")) {
+                int locationNumber = data.getIntExtra("locationNumber", 0);
+                GameLocation gameLocation = new LocationsBase().locations.get(locationNumber);
+                gameManager.setLocationNumber(locationNumber);
+                location.setText(gameLocation.caption);
+            }
         }
     }
 
