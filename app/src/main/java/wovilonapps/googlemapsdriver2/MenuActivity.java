@@ -1,12 +1,13 @@
 package wovilonapps.googlemapsdriver2;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.model.MarkerOptions;
+import androidx.appcompat.app.AppCompatActivity;
+
+
 
 public class MenuActivity extends AppCompatActivity {
 
