@@ -4,10 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,10 +19,13 @@ import java.util.Map;
 
 import wovilonapps.googlemapsdriver2.binders.ViewBinder;
 import wovilonapps.googlemapsdriver2.model.CarModels;
+import wovilonapps.googlemapsdriver2.model.GameLocation;
 import wovilonapps.googlemapsdriver2.model.LocationsBase;
 
 public class LocationListActivity extends AppCompatActivity {
     ListView listView;
+    EditText etCustomLocation;
+    Button btOk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +33,8 @@ public class LocationListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_location_list);
 
         listView = (ListView)findViewById(R.id.LocationListView);
+        etCustomLocation = (EditText)findViewById(R.id.etCustomLocation);
+        btOk = (Button) findViewById(R.id.btSetLocation);
 
         String caption = "Caption";
         //String latlng = "LatLng";
@@ -48,16 +57,43 @@ public class LocationListActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                returnResult(i);
+                returnResult(i, 0,0);
             }
         });
+
+        btOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (etCustomLocation.getText().length() > 0){
+                    String text = etCustomLocation.getText().toString();
+                    int divider = 0;
+                    if (text.contains(", ")){
+                        divider = text.indexOf(", ");
+                    }
+                    else if (text.contains(". ")){
+                        divider = text.indexOf(". ");
+                    }
+
+                    if (divider != 0){
+                        double lat = Double.parseDouble(text.substring(0, divider-1).replaceAll(",","."));
+                        double lng = Double.parseDouble(text.substring(divider+2, text.length()-1).replaceAll(",","."));
+                        returnResult(-1, lat, lng);
+                    }
+
+                }
+            }
+        });
+
     }
 
-    void returnResult(int i){
+    void returnResult(int i, double lat, double lng){
         Intent resultIntent=new Intent();
         resultIntent.putExtra("type", "location");
         resultIntent.putExtra("locationNumber", i);
+        resultIntent.putExtra("lat", lat);
+        resultIntent.putExtra("lng", lng);
         setResult(RESULT_OK, resultIntent);
         finish();
     }
+
 }

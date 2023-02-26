@@ -53,7 +53,7 @@ public class TwoPointsCarMotion extends AsyncTask {
     private double alpha_wheels = 0; //angle of wheels rotation (relative to carView)
 
     private int iterationTime = 20; //time iteration interval, ms
-    private double dt = ((double)iterationTime)/1000; //time interval, s
+    private double dt = ((double)iterationTime)/600; //time interval, s
 
     private boolean acceleratePressed = false, brakesPressed = false, rightPressed = false, leftPressed = false,
         reversePressed = false;
@@ -61,7 +61,7 @@ public class TwoPointsCarMotion extends AsyncTask {
     public TwoPointsCarMotion(Context context, GoogleMap googleMap, ImageView carView,
                               ImageView trailerView, GameManager gameManager) {
         mMap = googleMap;
-        carLocation = new LocationsBase().locations.get(gameManager.getLocationNumber()).latLng;
+        carLocation = gameManager.getLatLng();
         this.context = context;
         this.carView = carView;
         this.trailerView = trailerView;
@@ -155,7 +155,7 @@ public class TwoPointsCarMotion extends AsyncTask {
     }
 
     private void calculateAcceleration() {
-        Fr = v1 * 0.1 * (m1 + m2) + 400 * Math.signum(v1);
+        Fr = v1 * 0.1 * (m1 + m2) + 400 * (1 + alpha_wheels*0.005) * Math.signum(v1);
         if (Math.abs(v1) < 0.1) Fb = 0; //to avoid infinity low speed motion
 
 

@@ -9,5 +9,6 @@
     <string name="SelectCar">Select car</string>
     <string name="SelectPlace">Select place</string>
     <string name="Play">Play</string>
+    <string name="Custom">Custom</string>
 
 </resources>

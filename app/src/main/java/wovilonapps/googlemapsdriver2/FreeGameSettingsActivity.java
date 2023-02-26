@@ -19,6 +19,7 @@ public class FreeGameSettingsActivity extends AppCompatActivity {
     ImageView imageViewTrailer;
     TextView location;
     GameManager gameManager;
+    LocationsBase locationsBase = new LocationsBase();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,8 @@ public class FreeGameSettingsActivity extends AppCompatActivity {
 
         gameManager = new GameManager();
         gameManager.setCarNumber(3);
-        gameManager.setLocationNumber(0);
+        gameManager.setLat(locationsBase.locations.get(0).latLng.latitude);
+        gameManager.setLng(locationsBase.locations.get(0).latLng.longitude);
 
     }
 
@@ -59,10 +61,20 @@ public class FreeGameSettingsActivity extends AppCompatActivity {
 
             //if it is result from LocationsListActivity
             else if (data.getStringExtra("type").equals("location")) {
-                int locationNumber = data.getIntExtra("locationNumber", 0);
-                GameLocation gameLocation = new LocationsBase().locations.get(locationNumber);
-                gameManager.setLocationNumber(locationNumber);
-                location.setText(gameLocation.caption);
+                int locationNumber = data.getIntExtra("locationNumber", -2);
+                if (locationNumber == -1){
+                    LocationsBase base = new LocationsBase();
+                    gameManager.setLat(data.getDoubleExtra("lat", 0));
+                    gameManager.setLng(data.getDoubleExtra("lng", 0));
+                    location.setText(R.string.Custom);
+                }
+                else if (locationNumber >= 0) {
+                    GameLocation gameLocation = new LocationsBase().locations.get(locationNumber);
+                    LocationsBase base = new LocationsBase();
+                    gameManager.setLat(base.locations.get(locationNumber).latLng.latitude);
+                    gameManager.setLng(base.locations.get(locationNumber).latLng.longitude);
+                    location.setText(gameLocation.caption);
+                }
             }
         }
     }

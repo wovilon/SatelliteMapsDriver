@@ -7,7 +7,6 @@ import java.io.Serializable;
 
 public class GameLocation {
     public String caption;
-    public String description;
     public LatLng latLng;
 
     public GameLocation() {

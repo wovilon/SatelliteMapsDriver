@@ -36,7 +36,7 @@ public class CarModels {
         double lt = 0;
         double alpha_wheels_max = 45;
         double wheel_speed = 30;
-        double wheel_speed_release = wheel_speed * 1.3;
+        double wheel_speed_release = wheel_speed * 1.0;
         Bitmap carBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.city_car);
         Bitmap trailerBitmap = null;
 
@@ -50,8 +50,8 @@ public class CarModels {
         double m1 = 300;
         double m2 = 400;
         double m3 = 0;
-        double Fp_max = 7000;
-        double Fb_max = 14000;
+        double Fp_max = 10000;
+        double Fb_max = 20000;
         double l = 3;
         double lt = 0;
         double alpha_wheels_max = 45;
@@ -66,19 +66,19 @@ public class CarModels {
 
 
     public Car getWeakTruck(){
-        String model = "Truck";
+        String model = "Weak truck";
         double m1 = 5000;
         double m2 = 2000;
-        double m3 = 0;
-        double Fp_max = 15000;
-        double Fb_max = 80000;
+        double m3 = 22000;
+        double Fp_max = 40000;
+        double Fb_max = 200000;
         double l = 3;
-        double lt = 0;
+        double lt = 7;
         double alpha_wheels_max = 45;
         double wheel_speed = 25;
         double wheel_speed_release = wheel_speed * 0.9;
         Bitmap carBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.tractor_weak);
-        Bitmap trailerBitmap = null;
+        Bitmap trailerBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.trailer);
 
         return new Car(context,model, m1, m2, m3, Fp_max, Fb_max, l, lt, alpha_wheels_max,
                 wheel_speed,wheel_speed_release, carBitmap, trailerBitmap);
@@ -86,12 +86,12 @@ public class CarModels {
 
 
     public Car getPowerfulTruck(){
-        String model = "Truck with trailer";
+        String model = "Powerful truck";
         double m1 = 5000;
         double m2 = 2000;
         double m3 = 7000 + 15000;
-        double Fp_max = 30000;
-        double Fb_max = 100000;
+        double Fp_max = 60000;
+        double Fb_max = 200000;
         double l = 3;
         double lt = 7;
         double alpha_wheels_max = 45;

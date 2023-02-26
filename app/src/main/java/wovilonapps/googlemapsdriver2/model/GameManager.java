@@ -7,7 +7,8 @@ import java.io.Serializable;
 
 public class GameManager implements Serializable {
     private int carNumber;
-    private int locationNumber;
+    private double lat;
+    private double lng;
 
 
 
@@ -15,15 +16,18 @@ public class GameManager implements Serializable {
         return carNumber;
     }
 
-    public int getLocationNumber() {
-        return locationNumber;
+    public LatLng getLatLng() {
+        return new LatLng(lat, lng);
     }
 
     public void setCarNumber(int carNumber) {
         this.carNumber = carNumber;
     }
 
-    public void setLocationNumber(int locationNumber) {
-        this.locationNumber = locationNumber;
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+    public void setLng(double lng) {
+        this.lng = lng;
     }
 }
