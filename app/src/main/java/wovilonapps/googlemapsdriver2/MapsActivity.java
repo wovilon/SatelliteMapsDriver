@@ -141,7 +141,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        System.exit(0);     //TODO: not exit, but should normally play other level
+        finish();
     }
 
     /*    @Override

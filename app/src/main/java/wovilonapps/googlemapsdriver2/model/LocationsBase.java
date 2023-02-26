@@ -25,5 +25,8 @@ public ArrayList<GameLocation> locations;
         locations.add(new GameLocation("Francfurt, Germany, autobahn", new LatLng(50.201012, 8.645383)));
 
         locations.add(new GameLocation("Aircraft cemetery, USA", new LatLng(32.150260, -110.834107)));
+
+        locations.add(new GameLocation("Sea town, USA", new LatLng(24.579206431261728, -81.77706328708395)));
+
     }
 }
